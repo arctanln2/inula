@@ -78,3 +78,5 @@ openInula 主要遵循 Mulan Permissive Software License v2 协议，详情请�
 team@inulajs.org
 
 
+## action update
+1. npm publish
