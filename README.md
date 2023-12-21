@@ -80,3 +80,4 @@ team@inulajs.org
 
 ## action update
 1. npm publish
+2. build Dockerfile and push to dockerhub
