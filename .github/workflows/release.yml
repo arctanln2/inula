@@ -1,18 +1,20 @@
+name: Release
 on:
   push:
     branches:
       - master
-
-name: Release
-
 jobs:
-  release-please:
+  publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: GoogleCloudPlatform/release-please-action@v3
-        id: release
+      - name: Checkout
+        uses: actions/checkout@v3
+      - uses: actions/setup-node@v4
         with:
-          token: ${{ secrets.RELEASE_TOKEN }}
-          release-type: nodes
-          package-name: standard-version
-          changelog-types: '[{"type": "types", "section":"Types", "hidden": false},{"type": "revert", "section":"Reverts", "hidden": false},{"type": "feat", "section": "Features", "hidden": false},{"type": "fix", "section": "Bug Fixes", "hidden": false},{"type": "improvement", "section": "Feature Improvements", "hidden": false},{"type": "docs", "section":"Docs", "hidden": false},{"type": "style", "section":"Styling", "hidden": false},{"type": "refactor", "section":"Code Refactoring", "hidden": false},{"type": "perf", "section":"Performance Improvements", "hidden": false},{"type": "test", "section":"Tests", "hidden": false},{"type": "build", "section":"Build System", "hidden": false},{"type": "ci", "section":"CI", "hidden":false}]'
+          node-version: '16.15.0'
+      - name: Install
+        run: npm install --force
+      - name: Semantic Release
+        uses: wow-actions/release-github-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
